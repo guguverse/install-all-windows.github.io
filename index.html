@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Operating Systems — Official & Fanmade</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(145deg, #0b1a2e 0%, #1b2f44 100%);
+            min-height: 100vh;
+            padding: 24px;
+            color: #e8f0fe;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-weight: 300;
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #8aa4c0;
+            font-size: 0.95rem;
+            margin-bottom: 32px;
+            border-bottom: 1px solid #2a3f56;
+            padding-bottom: 20px;
+        }
+
+        .subtitle a {
+            color: #6ab0ff;
+            text-decoration: none;
+        }
+
+        /* ---- Tabs ---- */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 0;
+            border-bottom: 2px solid #2a3f56;
+            padding-left: 4px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: #8aa4c0;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 12px 24px;
+            cursor: pointer;
+            border-radius: 10px 10px 0 0;
+            transition: background 0.2s, color 0.2s;
+            letter-spacing: 0.3px;
+            position: relative;
+            bottom: -2px;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-btn:hover {
+            background: rgba(255,255,255,0.04);
+            color: #c0d4e8;
+        }
+
+        .tab-btn.active {
+            color: #e8f0fe;
+            background: rgba(106, 176, 255, 0.08);
+            border-bottom-color: #6ab0ff;
+        }
+
+        .tab-content {
+            display: none;
+            padding-top: 28px;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ---- Grid ---- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 22px 12px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            color: #fff;
+            transition: transform 0.15s, box-shadow 0.2s, filter 0.2s;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+            letter-spacing: 0.3px;
+            text-align: center;
+            line-height: 1.4;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .btn small {
+            display: block;
+            font-weight: 400;
+            font-size: 0.7rem;
+            opacity: 0.8;
+            margin-top: 6px;
+            color: #d0dae6;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.5);
+            filter: brightness(1.15);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Colors */
+        .dos     { background: #2d4a2d; border-left: 5px solid #7ec87e; }
+        .win1    { background: #3a3a5a; border-left: 5px solid #a0a0e0; }
+        .win95   { background: #1e4d6b; border-left: 5px solid #5bb8d4; }
+        .win98   { background: #2b5a7a; border-left: 5px solid #7ac8e8; }
+        .winme   { background: #6b3a1e; border-left: 5px solid #d4a05b; }
+        .vista   { background: #1a3a5a; border-left: 5px solid #7aaae0; }
+        .win7    { background: #2a4a6a; border-left: 5px solid #8ab8f0; }
+        .win81   { background: #1a3a4a; border-left: 5px solid #5ab8c8; }
+        .win10   { background: #1e3a5a; border-left: 5px solid #4a9ae0; }
+        .win11   { background: #2a3a5a; border-left: 5px solid #6ab0f0; }
+
+        /* New Utility Buttons */
+        .vmware  { background: #4a2d2d; border-left: 5px solid #d47e7e; }
+        .vbox    { background: #2d3a4a; border-left: 5px solid #7aaac8; }
+        .sandbox { background: #2d4a3a; border-left: 5px solid #7ec8a0; }
+
+        .fanmade-tag {
+            display: inline-block;
+            background: rgba(255, 200, 100, 0.18);
+            border: 1px solid rgba(255, 200, 100, 0.35);
+            color: #ffc864;
+            font-size: 0.6rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-top: 5px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .util-tag {
+            display: inline-block;
+            background: rgba(150, 200, 255, 0.15);
+            border: 1px solid rgba(150, 200, 255, 0.35);
+            color: #9ac8ff;
+            font-size: 0.6rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-top: 5px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .section-divider {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #5a7a9a;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 20px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #1e3144;
+        }
+
+        .note {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #6a8aa8;
+            font-size: 0.8rem;
+            margin-top: 28px;
+            padding: 16px;
+            border-top: 1px solid #1e3144;
+            line-height: 1.6;
+        }
+
+        .note a {
+            color: #6ab0ff;
+        }
+
+        .count-badge {
+            display: inline-block;
+            background: #2a3f56;
+            color: #8aa4c0;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            margin-left: 8px;
+            font-weight: 600;
+            vertical-align: middle;
+        }
+
+        @media (max-width: 600px) {
+            .tab-btn { padding: 10px 14px; font-size: 0.85rem; }
+            h1 { font-size: 1.6rem; }
+            .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Download Operating Systems</h1>
+        <div class="subtitle">Official Microsoft releases & fanmade builds · <a href="#note">note</a></div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="official">Official Microsoft</button>
+            <button class="tab-btn" data-tab="fanmade">Fanmade Builds <span class="count-badge">100+</span></button>
+        </div>
+
+        <!-- ================= OFFICIAL TAB ================= -->
+        <div class="tab-content active" id="official">
+            <div class="grid">
+                <!-- MS-DOS -->
+                <a class="btn dos" href="https://winworldpc.com/product/ms-dos/1x" target="_blank" rel="noopener">
+                    MS-DOS
+                    <small>WinWorldPC · original versions</small>
+                </a>
+
+                <!-- Windows 1.0 -->
+                <a class="btn win1" href="https://winworldpc.com/product/windows-10/10" target="_blank" rel="noopener">
+                    Windows 1.0
+                    <small>WinWorldPC · 1.01 / 1.03 / 1.04</small>
+                </a>
+
+                <!-- Windows 95 -->
+                <a class="btn win95" href="https://winworldpc.com/product/windows-95/95" target="_blank" rel="noopener">
+                    Windows 95
+                    <small>WinWorldPC · RTM / OSR1 / OSR2</small>
+                </a>
+
+                <!-- Windows 98 -->
+                <a class="btn win98" href="https://winworldpc.com/product/windows-98/98-se" target="_blank" rel="noopener">
+                    Windows 98 / 98 SE
+                    <small>WinWorldPC · original ISO</small>
+                </a>
+
+                <!-- Windows ME -->
+                <a class="btn winme" href="https://winworldpc.com/product/windows-me/10" target="_blank" rel="noopener">
+                    Windows ME
+                    <small>WinWorldPC · original image</small>
+                </a>
+
+                <!-- Windows Vista -->
+                <a class="btn vista" href="https://winworldpc.com/product/windows-vista/10" target="_blank" rel="noopener">
+                    Windows Vista
+                    <small>WinWorldPC · RTM / SP1 / SP2</small>
+                </a>
+
+                <!-- Windows 7 -->
+                <a class="btn win7" href="https://www.microsoft.com/en-us/software-download/windows7" target="_blank" rel="noopener">
+                    Windows 7
+                    <small>Microsoft · product key required</small>
+                </a>
+
+                <!-- Windows 8.1 -->
+                <a class="btn win81" href="https://www.microsoft.com/en-us/software-download/windows8" target="_blank" rel="noopener">
+                    Windows 8.1
+                    <small>Microsoft · official</small>
+                </a>
+
+                <!-- Windows 10 -->
+                <a class="btn win10" href="https://www.microsoft.com/en-us/software-download/windows10" target="_blank" rel="noopener">
+                    Windows 10
+                    <small>Microsoft · official</small>
+                </a>
+
+                <!-- Windows 11 -->
+                <a class="btn win11" href="https://www.microsoft.com/en-us/software-download/windows11" target="_blank" rel="noopener">
+                    Windows 11
+                    <small>Microsoft · official</small>
+                </a>
+
+                <div class="note" id="note">
+                    <strong>Original Microsoft releases.</strong> Older systems (MS-DOS, Windows 1.0–ME, Vista) are no longer officially distributed by Microsoft — links point to archive resources.
+                    Windows 7 requires a valid product key. Windows 8.1, 10 and 11 are available for free download from Microsoft.
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= FANMADE TAB ================= -->
+        <div class="tab-content" id="fanmade">
+            <div class="grid">
+                <!-- MS-DOS Fanmade -->
+                <a class="btn dos" href="https://winworldpc.com/product/ms-dos/7x" target="_blank" rel="noopener">
+                    MS-DOS 7.1 CDU
+                    <small>China DOS Union · FAT32 + LFN</small>
+                    <span class="fanmade-tag">FANMADE</span>
+                </a>
+
+                <!-- Windows 1.0 Fanmade -->
+                <a class="btn win1" href="https://aeroheaven.com/windows/Classic/Windows%201.0/" target="_blank" rel="noopener">
+                    Windows 1.x Collection
+                    <small>AeroHeaven · classic builds</small>
+                    <span class="fanmade-tag">FANMADE</span>
+                </a>
+
+                <!-- Windows 95 Electron App -->
+                <a class="btn win95" href="https://github.com/felixrieseberg/windows95" target="_blank" rel="noopener">
+                    Windows 95 Electron
+                    <small>JS reimagining · cross-platform</small>
+                    <span class="fanmade-tag">FANMADE</span>
+                </a>
+
+                <!-- Windows 95/98/ME Collection -->
+                <a class="btn win98" href="https://archive.org/details/mr-gas-ss-windows-9x-italian-collection-disc" target="_blank" rel="noopener">
+                    Win9x Collection Disc
+                    <small>95 / 98 / ME + Plus! packs</small>
+                    <span class="fanmade-tag">FANMADE</span>
+                </a>
+
+                <!-- Windows 98 QuickInstall -->
+                <a class="btn win98" href="https://github.com/oerg866/win98-quickinstall" target="_blank" rel="noopener">
+                    Win98 QuickInstall
+                    <small>Lite build · all patches included</small>
+                    <span class="fanmade-tag">FANMADE</span>
+                </a>
+
+                <!-- Windows 98 LiveCD -->
+                <a class="btn win98" href="https://archive.org/details/98-livecd" target="_blank" rel="noopener">
+                    Windows 98 LiveCD
+                    <small>Bootable image · only 23MB</small>
+                    <span class="fanmade-tag">FANMADE</span>
+                </a>
+
+                <!-- Windows ME Micro -->
+                <a class="btn winme" href="https://github.com/oerg866/win98-quickinstall" target="_blank" rel="noopener">
+                    Windows ME Micro
+                    <small>98Lite · DirectX 8.1 · speed-tuned</small>
+                    <span class="fanmade-tag">FANMADE</span>
+                </a>
+
+                <!-- Windows XP to ME -->
+                <a class="btn winme" href="https://archive.org/details/windows-xptome" target="_blank" rel="noopener">
+                    Windows XPtoMe
+                    <small>XP SP3 with ME interface</small>
+                    <span class="fanmade-tag">FANMADE</span>
+                </a>
+
+                <!-- Windows Vista Bob Pony -->
+                <a class="btn vista" href="https://archive.org/details/vistasp2_ldr_escrow.251211-1611" target="_blank" rel="noopener">
+                    Windows Vista (Bob Pony)
+                    <small>All updates · January 2026</small>
+                    <span class="fanmade-tag">FANMADE</span>
+                </a>
+
+                <!-- Windows 7 Bob Pony -->
+                <a class="btn win7" href="https://archive.org/details/20260625_20260625_0405" target="_blank" rel="noopener">
+                    Windows 7 (Bob Pony)
+                    <small>Final updates · all-in-one</small>
+                    <span class="fanmade-tag">FANMADE</span>
+                </a>
+
+                <!-- Windows 7 69MB Ultra-Lite -->
+                <a class="btn win7" href="https://ithardware.pl/aktualnosci/windows_7_69_mb-46300.html" target="_blank" rel="noopener">
+                    Windows 7 Ultra-Lite
+                    <small>69MB · experimental build</small>
+                    <span class="fanmade-tag">FANMADE</span>
+                </a>
+
+                <!-- Windows 7 Shynkarenko -->
+                <a class="btn win7" href="https://archive.org/details/windows-7-ultimate-shynkarenko-june-2025" target="_blank" rel="noopener">
+                    Windows 7 Shynkarenko
+                    <small>NTLite · June 2025</small>
+                    <span class="fanmade-tag">FANMADE</span>
+                </a>
+
+                <!-- Windows 10 54-in-1 -->
+                <a class="btn win10" href="https://bbs.wuyou.net/forum.php/archiver/forum.php?mod=viewthread&tid=453206&extra=" target="_blank" rel="noopener">
+                    Windows 10 (54-in-1)
+                    <small>XiaoXiu · all editions</small>
+                    <span class="fanmade-tag">FANMADE</span>
+                </a>
+
+                <!-- Windows 10/11 90-in-1 -->
+                <a class="btn win10" href="https://bbs.wuyou.net/forum.php?mod=viewthread&tid=453184&extra=&page=1" target="_blank" rel="noopener">
+                    Windows 10/11 (90-in-1)
+                    <small>Ultimate Collection · 90 editions</small>
+                    <span class="fanmade-tag">FANMADE</span>
+                </a>
+
+                <!-- Windows 11 Buchuwang -->
+                <a class="btn win11" href="https://pan.quark.cn/s/88cc1b40d273" target="_blank" rel="noopener">
+                    Windows 11 (Buchuwang)
+                    <small>Game edition · 22-26H1</small>
+                    <span class="fanmade-tag">FANMADE</span>
+                </a>
+
+                <!-- Windows 11 fch1993 -->
+                <a class="btn win11" href="https://www.mnpc.net/page/5?cate=15" target="_blank" rel="noopener">
+                    Windows 11 (fch1993)
+                    <small>25H2 · 25-in-1 · July 2026</small>
+                    <span class="fanmade-tag">FANMADE</span>
+                </a>
+
+                <!-- 408GB Mega Collection -->
+                <a class="btn win11" href="https://1815985860.share.123pan.cn/123pan/szKLVv-IUAXv" target="_blank" rel="noopener" style="background:#3a2a4a; border-left-color:#a07ae0;">
+                    408GB Mega Collection
+                    <small>100+ ISO · official + modded</small>
+                    <span class="fanmade-tag">FANMADE</span>
+                </a>
+
+                <!-- ========== UTILITIES SECTION ========== -->
+                <div class="section-divider">Virtualization Utilities</div>
+
+                <!-- VMware Workstation Pro -->
+                <a class="btn vmware" href="https://knowledge.broadcom.com/external/article/368667/download-and-license-vmware-desktop-hype.html" target="_blank" rel="noopener">
+                    VMware Workstation Pro
+                    <small>Free for personal & commercial use [citation:1]</small>
+                    <span class="util-tag">UTILITY</span>
+                </a>
+
+                <!-- VirtualBox -->
+                <a class="btn vbox" href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="noopener">
+                    Oracle VirtualBox
+                    <small>Open-source · x86 & ARM [citation:3]</small>
+                    <span class="util-tag">UTILITY</span>
+                </a>
+
+                <!-- Windows Sandbox -->
+                <a class="btn sandbox" href="https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-install" target="_blank" rel="noopener">
+                    Windows Sandbox
+                    <small>Built-in · Pro/Enterprise only [citation:4]</small>
+                    <span class="util-tag">UTILITY</span>
+                </a>
+
+                <div class="note">
+                    <strong>Note:</strong> Fanmade builds are <strong>unofficial</strong> community modifications with pre-applied updates, drivers, or tweaks.
+                    They are not supported by Microsoft and may carry security risks. Always scan files with antivirus software and use them in a virtual machine or on a dedicated retro PC.
+                    <br><br>
+                    <strong>Sources:</strong> <a href="https://winworldpc.com" target="_blank" rel="noopener">WinWorldPC</a> ·
+                    <a href="https://archive.org" target="_blank" rel="noopener">Internet Archive</a> ·
+                    Enthusiast community.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.tab).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
